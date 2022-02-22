@@ -15,6 +15,7 @@
     <description>FortunaBall</description>
     <properties>
         <java.version>11</java.version>
+        <changelog.file>changelog_master.xml</changelog.file>
     </properties>
     <dependencies>
         <dependency>
@@ -101,4 +102,35 @@
         </plugins>
     </build>
 
+
+    <profiles>
+        <profile>
+            <id>liqui</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.liquibase</groupId>
+                        <artifactId>liquibase-maven-plugin</artifactId>
+                        <version>3.8.9</version>
+                        <executions>
+                            <execution>
+                                <phase>process-resources</phase>
+                                <goals>
+                                    <goal>update</goal>
+                                </goals>
+                                <configuration>
+                                    <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
+                                    <changeLogFile>${changelog.file}</changeLogFile>
+                                    <driver>org.postgresql.Driver</driver>
+                                    <url>${db.url}</url>
+                                    <username>${db.user}</username>
+                                    <password>${db.pass}</password>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

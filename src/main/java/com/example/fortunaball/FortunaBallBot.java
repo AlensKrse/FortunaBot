@@ -114,5 +114,6 @@ public class FortunaBallBot extends TelegramLongPollingBot {
     //todo add button giveMeAdvice
     //todo add DoYouWannaAJoke?
     //todo add DoYouWannaMeme?
+    //todo add statistic for each chatId
 
 }
