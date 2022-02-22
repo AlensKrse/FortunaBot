@@ -3,4 +3,18 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
     <include file="database/0001_chats.sql"/>
+    <include file="database/0002_advices.sql"/>
+    <include file="database/0003_jokes.sql"/>
+    <include file="database/0004_memes.sql"/>
+    <include file="database/0005_chatfeatures.sql"/>
+    <include file="database/0006_chatadvices.sql"/>
+    <include file="database/0007_chatjokes.sql"/>
+    <include file="database/0008_chatmemes.sql"/>
+    <include file="database/0009_chatfeatures.sql"/>
+    <include file="database/0010_chatstatus.sql"/>
+    <include file="database/0011_chatfeatures.sql"/>
+    <include file="database/0012_chats.sql"/>
+    <include file="database/0013_advices_jokes_memes.sql"/>
+    <include file="database/0014_chatadvices_chatjokes_chatmemes.sql"/>
+    <include file="database/0015_chatadvices_chatjokes_chatmemes.sql"/>
 </databaseChangeLog>

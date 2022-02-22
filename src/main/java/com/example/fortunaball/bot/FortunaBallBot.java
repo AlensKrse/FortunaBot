@@ -1,12 +1,15 @@
-package com.example.fortunaball;
+package com.example.fortunaball.bot;
 
 import com.example.fortunaball.entities.Chat;
+import com.example.fortunaball.entities.ChatFeature;
+import com.example.fortunaball.enums.MailingType;
+import com.example.fortunaball.services.ChatFeatureService;
 import com.example.fortunaball.services.ChatService;
-import com.example.fortunaball.services.FortunaBallAnswerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -14,8 +17,10 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Component
 public class FortunaBallBot extends TelegramLongPollingBot {
@@ -26,7 +31,13 @@ public class FortunaBallBot extends TelegramLongPollingBot {
     private ChatService chatService;
 
     @Autowired
+    private ChatFeatureService chatFeatureService;
+
+    @Autowired
     private FortunaBallAnswerService fortuneBallAnswerService;
+
+    @Autowired
+    private FortunaBallMailingDistributorService fortunaBallMailingDistributorService;
 
     @Value("${bot.username}")
     private String botUserName;
@@ -63,6 +74,26 @@ public class FortunaBallBot extends TelegramLongPollingBot {
 
     }
 
+    public void sendMailingMessage(final MailingType mailingType) {
+        final List<Long> activeChatIds = chatService.getAllActiveChats().stream().map(Chat::getId).collect(Collectors.toList());
+        final List<ChatFeature> chatFeatures = fortunaBallMailingDistributorService.getChatFeatures(mailingType, activeChatIds);
+        chatFeatures.forEach(chatFeature -> {
+            final long chatId = chatFeature.getChatId();
+            final SendMessage message = new SendMessage();
+            message.setChatId(String.valueOf(chatId));
+            final Pair<Long, String> mailingPair = fortunaBallMailingDistributorService.getMailingPair(mailingType, chatId);
+            final long mailingId = mailingPair.getFirst();
+            final String text = mailingPair.getSecond();
+            message.setText(text);
+            try {
+                execute(message);
+                fortunaBallMailingDistributorService.setMailingMessageIsUsed(mailingType, chatId, mailingId);
+            } catch (TelegramApiException e) {
+                LOGGER.error("During daily advice method an exception caught: {}", e.getMessage());
+            }
+        });
+    }
+
     private String getUserName(final Message message) {
         final org.telegram.telegrambots.meta.api.objects.Chat messageChat = message.getChat();
 
@@ -85,21 +116,26 @@ public class FortunaBallBot extends TelegramLongPollingBot {
 
         final Optional<Chat> optionalChat = chatService.getChat(chatId);
         if (requestText.equals("/start")) {
-            optionalChat.ifPresentOrElse(chat -> responseMessage.setText("Мне кажется мы с Вами уже знакомы..."), () -> {
+            optionalChat.ifPresentOrElse(chat -> {
+                chatService.setActive(chatId);
+                responseMessage.setText("Мне кажется мы с Вами уже знакомы...");
+            }, () -> {
                 chatService.saveChat(chatId);
+                fortunaBallMailingDistributorService.addMailingDataToChatId(chatId);
                 final String welcomeText = String.format("Добро пожаловать %s! Шар фортуны ожидает Ваших вопросов.", userName);
                 responseMessage.setText(welcomeText);
             });
         } else if (requestText.equals("/stop")) {
             optionalChat.ifPresentOrElse(chat -> {
-                chatService.deleteChat(chatId);
+                chatService.setInActive(chatId);
                 final String farewellText = String.format("Надеюсь увидеть Вас снова %s!", userName);
                 responseMessage.setText(farewellText);
             }, () -> responseMessage.setText("Я не могу остановить то, что не начато..."));
         } else if (isInvalidQuestion(requestText)) {
             responseMessage.setText("По моему это не вопрос, попробуйте еще раз в формате '...?'");
         } else {
-            optionalChat.orElse(chatService.saveChat(chatId));
+            optionalChat.ifPresentOrElse(chat -> { //todo Предложить подключить бота
+            }, () -> chatService.saveChat(chatId));
             final String answer = fortuneBallAnswerService.getFortuneBallAnswer();
             responseMessage.setText(answer);
         }
@@ -112,8 +148,6 @@ public class FortunaBallBot extends TelegramLongPollingBot {
 
     //todo add day advice, every day
     //todo add button giveMeAdvice
-    //todo add DoYouWannaAJoke?
-    //todo add DoYouWannaMeme?
     //todo add statistic for each chatId
 
 }

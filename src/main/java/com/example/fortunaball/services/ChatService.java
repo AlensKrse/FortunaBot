@@ -16,6 +16,7 @@ import java.util.Optional;
 public class ChatService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ChatService.class);
+    public static final String CHAT_NOT_FOUND_ERROR_MESSAGE = "Chat with id: %d not found, can not set status inactive!";
 
     @Autowired
     private ChatRepository chatRepository;
@@ -25,8 +26,38 @@ public class ChatService {
         LOGGER.info("Save new chat with id: {}", chatId);
         final Chat chat = new Chat();
         chat.setId(chatId);
+        chat.setActive(Boolean.TRUE);
 
         return chatRepository.save(chat);
+    }
+
+    @Transactional
+    public Chat setActive(final long chatId) {
+        LOGGER.info("Set active chat with id: {}", chatId);
+        final Optional<Chat> optionalChat = chatRepository.findById(chatId);
+        optionalChat.ifPresentOrElse(chat -> {
+            chat.setActive(Boolean.TRUE);
+            chatRepository.save(chat);
+        }, () -> saveChat(chatId));
+
+        return chatRepository.getById(chatId);
+    }
+
+    @Transactional
+    public Chat setInActive(final long chatId) {
+        LOGGER.info("Set inactive chat with id: {}", chatId);
+        final Optional<Chat> optionalChat = chatRepository.findById(chatId);
+        optionalChat.ifPresentOrElse(chat -> {
+            chat.setActive(Boolean.FALSE);
+            chatRepository.save(chat);
+        }, () -> {
+            LOGGER.info("Chat with id: {} not found, can not set status inactive!", chatId);
+            throw new UnsupportedOperationException(String.format(CHAT_NOT_FOUND_ERROR_MESSAGE, chatId));
+        });
+
+        return chatRepository.findById(chatId).orElseThrow(() -> {
+            throw new UnsupportedOperationException(String.format(CHAT_NOT_FOUND_ERROR_MESSAGE, chatId));
+        });
     }
 
     @Transactional(rollbackFor = Exception.class)
@@ -37,8 +68,8 @@ public class ChatService {
     }
 
     @Transactional(readOnly = true)
-    public List<Chat> getAllChats() {
-        return chatRepository.findAll();
+    public List<Chat> getAllActiveChats() {
+        return chatRepository.findAllByActiveTrue();
     }
 
     @Transactional(rollbackFor = Exception.class)

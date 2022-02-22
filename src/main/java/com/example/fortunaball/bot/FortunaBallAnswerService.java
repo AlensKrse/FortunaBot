@@ -1,4 +1,4 @@
-package com.example.fortunaball.services;
+package com.example.fortunaball.bot;
 
 import com.example.fortunaball.enums.FortunaType;
 import org.slf4j.Logger;
@@ -31,8 +31,8 @@ public class FortunaBallAnswerService {
     private final List<String> neutralSmiles = new ArrayList<>(List.of("\uD83E\uDD28", "\uD83E\uDDD0", "\uD83E\uDD2D", "\uD83E\uDD25", "\uD83D\uDE36", "\uD83D\uDE13", "\uD83D\uDE15", "\uD83D\uDE36\u200D\uD83C\uDF2B️"));
     private final List<String> negativeSmiles = new ArrayList<>(List.of("\uD83D\uDE2B", "\uD83D\uDE2D", "\uD83D\uDE21", "\uD83E\uDD2F", "\uD83E\uDD2C", "\uD83E\uDD22", "\uD83D\uDCA9", "\uD83D\uDC7A"));
 
-    private final String ERROR_CASE_ANSWER = "Ответить на этот вопрос не по силен ни кто!";
-    private final String ERROR_CASE_SMILE = "☠️";
+    private static final String ERROR_CASE_ANSWER = "Ответить на этот вопрос не по силен ни кто!";
+    private static final String ERROR_CASE_SMILE = "☠️";
 
     public FortunaBallAnswerService() throws NoSuchAlgorithmException {
         // TODO document why this constructor is empty
