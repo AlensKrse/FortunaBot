@@ -40,4 +40,14 @@ public class ChatAdviceService {
             throw new UnsupportedOperationException(String.format("Chat advice not found after mailing message sending by chat id: %d and advice id: %d", chatId, adviceId));
         });
     }
+
+    @Transactional(readOnly = true)
+    public List<ChatAdvice> getAll() {
+        return chatAdviceRepository.findAll();
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public ChatAdvice save(final ChatAdvice chatAdvice) {
+        return chatAdviceRepository.save(chatAdvice);
+    }
 }

@@ -73,6 +73,11 @@ public class ChatService {
         return chatRepository.findAllByActiveTrue();
     }
 
+    @Transactional(readOnly = true)
+    public List<Chat> getAllChats() {
+        return chatRepository.findAll();
+    }
+
     @Transactional(rollbackFor = Exception.class)
     public void deleteChat(final long chatId) {
         LOGGER.info("Delete chat by id: {}", chatId);

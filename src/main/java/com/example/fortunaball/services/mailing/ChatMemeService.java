@@ -40,4 +40,14 @@ public class ChatMemeService {
     public List<ChatMeme> saveAllChatMemes(final List<ChatMeme> chatMemes) {
         return chatMemeRepository.saveAll(chatMemes);
     }
+
+    @Transactional(readOnly = true)
+    public List<ChatMeme> getAll() {
+        return chatMemeRepository.findAll();
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public ChatMeme save(final ChatMeme chatMeme) {
+        return chatMemeRepository.save(chatMeme);
+    }
 }

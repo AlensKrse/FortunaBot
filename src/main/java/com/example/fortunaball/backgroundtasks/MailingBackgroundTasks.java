@@ -7,7 +7,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ScheduledTasks {
+public class MailingBackgroundTasks {
 
     @Autowired
     private MailingService mailingService;
@@ -18,12 +18,12 @@ public class ScheduledTasks {
     }
 
     @Scheduled(cron = "0 0 9,14,19 * * *", zone = "CET")
-    public void sendHourlyJoke() {
+    public void sendJoke() {
         mailingService.sendMailingMessage(MailingType.JOKE);
     }
 
     @Scheduled(cron = "0 0 11,17,21 * * *", zone = "CET")
-    public void sendHourlyMeme() {
+    public void sendMeme() {
         mailingService.sendMailingMessage(MailingType.MEME);
     }
 

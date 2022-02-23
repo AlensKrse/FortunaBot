@@ -40,4 +40,14 @@ public class ChatJokeService {
     public List<ChatJoke> saveAllChatJokes(final List<ChatJoke> chatJokes) {
         return chatJokeRepository.saveAll(chatJokes);
     }
+
+    @Transactional(readOnly = true)
+    public List<ChatJoke> getAll() {
+        return chatJokeRepository.findAll();
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public ChatJoke save(final ChatJoke chatJoke) {
+        return chatJokeRepository.save(chatJoke);
+    }
 }
