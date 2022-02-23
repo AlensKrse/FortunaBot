@@ -26,15 +26,12 @@ import org.springframework.transaction.annotation.Transactional;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
 @Transactional
-class FortunaBallBotTest {
+class BotTest {
 
     private static final long CHAT_ID = 123456L;
-    private static final long ADVICE_ID = 332L;
-    private static final long JOKE_ID = 44212L;
-    private static final long MEME_ID = 4214144L;
 
     @Autowired
-    private FortunaBallBot fortunaBallBot;
+    private MailingService mailingService;
 
     @Autowired
     private ChatFeaturesRepository chatFeaturesRepository;
@@ -73,17 +70,16 @@ class FortunaBallBotTest {
         chatFeaturesRepository.save(chatFeature);
 
         final Advice advice = new Advice();
-        advice.setId(ADVICE_ID);
         advice.setText("Advice Test Text");
-        adviceRepository.save(advice);
+        final Advice savedAdvice = adviceRepository.save(advice);
 
         final ChatAdvice chatAdvice = new ChatAdvice();
         chatAdvice.setChatId(CHAT_ID);
-        chatAdvice.setAdviceId(ADVICE_ID);
+        chatAdvice.setAdviceId(savedAdvice.getId());
         chatAdvice.setUsed(false);
         chatAdviceRepository.save(chatAdvice);
 
-        fortunaBallBot.sendMailingMessage(MailingType.ADVICE);
+        mailingService.sendMailingMessage(MailingType.ADVICE);
     }
 
     @Test
@@ -99,17 +95,16 @@ class FortunaBallBotTest {
         chatFeaturesRepository.save(chatFeature);
 
         final Joke joke = new Joke();
-        joke.setId(JOKE_ID);
         joke.setText("Joke Test Text");
-        jokeRepository.save(joke);
+        final Joke savedJoke = jokeRepository.save(joke);
 
         final ChatJoke chatJoke = new ChatJoke();
         chatJoke.setChatId(CHAT_ID);
-        chatJoke.setJokeId(JOKE_ID);
+        chatJoke.setJokeId(savedJoke.getId());
         chatJoke.setUsed(false);
         chatJokeRepository.save(chatJoke);
 
-        fortunaBallBot.sendMailingMessage(MailingType.JOKE);
+        mailingService.sendMailingMessage(MailingType.JOKE);
     }
 
     @Test
@@ -125,17 +120,16 @@ class FortunaBallBotTest {
         chatFeaturesRepository.save(chatFeature);
 
         final Meme meme = new Meme();
-        meme.setId(MEME_ID);
         meme.setText("Meme Test Text");
-        memeRepository.save(meme);
+        final Meme savedMeme = memeRepository.save(meme);
 
         final ChatMeme chatMeme = new ChatMeme();
         chatMeme.setChatId(CHAT_ID);
-        chatMeme.setMemeId(MEME_ID);
+        chatMeme.setMemeId(savedMeme.getId());
         chatMeme.setUsed(false);
         chatMemeRepository.save(chatMeme);
 
-        fortunaBallBot.sendMailingMessage(MailingType.MEME);
+        mailingService.sendMailingMessage(MailingType.MEME);
     }
 
 }

@@ -16,7 +16,8 @@ import java.util.Optional;
 public class ChatService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ChatService.class);
-    public static final String CHAT_NOT_FOUND_ERROR_MESSAGE = "Chat with id: %d not found, can not set status inactive!";
+
+    private static final String CHAT_NOT_FOUND_ERROR_MESSAGE = "Chat with id: %d not found, can not set status inactive!";
 
     @Autowired
     private ChatRepository chatRepository;

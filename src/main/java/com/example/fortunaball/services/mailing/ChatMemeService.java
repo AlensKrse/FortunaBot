@@ -26,7 +26,7 @@ public class ChatMemeService {
 
     @Transactional(rollbackFor = Exception.class)
     public void setMemeIsUsedForChatId(final long chatId, final long memeId) {
-        final Optional<ChatMeme> optionalChatMeme = chatMemeRepository.findByIdAndChatId(memeId, chatId);
+        final Optional<ChatMeme> optionalChatMeme = chatMemeRepository.findByMemeIdAndChatId(memeId, chatId);
         optionalChatMeme.ifPresentOrElse(chatMeme -> {
             chatMeme.setUsed(Boolean.TRUE);
             chatMemeRepository.save(chatMeme);

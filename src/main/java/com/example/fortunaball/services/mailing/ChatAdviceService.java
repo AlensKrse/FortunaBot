@@ -31,7 +31,7 @@ public class ChatAdviceService {
 
     @Transactional(rollbackFor = Exception.class)
     public void setAdviceIsUsedForChatId(final long chatId, final long adviceId) {
-        final Optional<ChatAdvice> optionalChatAdvice = chatAdviceRepository.findByIdAndChatId(adviceId, chatId);
+        final Optional<ChatAdvice> optionalChatAdvice = chatAdviceRepository.findByAdviceIdAndChatId(adviceId, chatId);
         optionalChatAdvice.ifPresentOrElse(chatAdvice -> {
             chatAdvice.setUsed(Boolean.TRUE);
             chatAdviceRepository.save(chatAdvice);

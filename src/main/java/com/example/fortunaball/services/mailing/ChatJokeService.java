@@ -26,7 +26,7 @@ public class ChatJokeService {
 
     @Transactional(rollbackFor = Exception.class)
     public void setJokeIsUsedForChatId(final long chatId, final long jokeId) {
-        final Optional<ChatJoke> optionalChatJoke = chatJokeRepository.findByIdAndChatId(jokeId, chatId);
+        final Optional<ChatJoke> optionalChatJoke = chatJokeRepository.findByJokeIdAndChatId(jokeId, chatId);
         optionalChatJoke.ifPresentOrElse(chatJoke -> {
             chatJoke.setUsed(Boolean.TRUE);
             chatJokeRepository.save(chatJoke);
