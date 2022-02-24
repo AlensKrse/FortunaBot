@@ -1,0 +1,22 @@
+.group-padding {
+  padding: .75rem;
+}
+
+.group-padding-top {
+  padding-top: 20px;
+}
+
+.admin-buttons-padding {
+  margin-bottom: 20px;
+}
+
+.table-container {
+  margin-top: 10px;
+  max-height: 327px;
+  overflow: auto;
+  width: 100%;
+}
+
+table {
+  width: 100%;
+}

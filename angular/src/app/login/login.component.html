@@ -1,0 +1,29 @@
+<div class="container-login">
+  <form [formGroup]="form">
+    <p *ngIf="invalidData">
+      <ngb-alert>
+        Entered username or password is incorrent!
+      </ngb-alert>
+    </p>
+    <mat-form-field class="full-width mb-2">
+      <input matInput placeholder="Sign in" formControlName="username" autoFocus>
+      <mat-error *ngIf="form.get('username')!.hasError('required')">
+        Username is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="full-width mb-2">
+      <input matInput type="password" placeholder="Password" formControlName="password">
+      <mat-error *ngIf="form.get('password')!.errors">
+        Password is required
+      </mat-error>
+    </mat-form-field>
+
+    <div class="text-right mb-2">
+      <button mat-raised-button color="primary" (click)="onLogin()" [disabled]="submitted">
+        <span *ngIf="!submitted">Sign in</span>
+        <span *ngIf="submitted">Signing in</span>
+      </button>
+    </div>
+  </form>
+</div>
