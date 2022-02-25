@@ -119,6 +119,7 @@ public class DataFillingService {
         saveNewChatAdvices(activeChats);
         saveNewChatJokes(activeChats);
         saveNewChatMemes(activeChats);
+        LOGGER.info("All data content refresh finished, time: {} ", new Date());
     }
 
     private void saveNewChatAdvices(final List<Chat> activeChats) {

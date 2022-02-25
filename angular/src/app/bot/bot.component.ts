@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {MatTabChangeEvent} from "@angular/material/tabs";
 
 @Component({
   selector: 'app-bot',
@@ -16,6 +17,10 @@ export class BotComponent implements OnInit {
   }
 
   private loadChatMailings() {
+
+  }
+
+  executeSelectedChange($event: MatTabChangeEvent) {
 
   }
 }

@@ -1,27 +1,22 @@
 <app-page-header [title]="'general.title' | translate"></app-page-header>
 
-  <div class="content-wrapper">
-    <div class="content">
-      <div class="row group-padding-top">
-        <div class="col-md-12">
-      <h1> ITS WORKS </h1>
-          <div class="group-padding">
-            <table class="table table-hover" >
-              <caption>Mailing types</caption>
-              <thead>
-              <tr>
-                <th id="name">Name</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr *ngFor="let chatMailing of chatMailings;">
-                <td>{{ chatMailing.title }}</td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
+<section fxLayout="column" fxFlexAlign="stretch">
+  <div fxFlexAlign="center">
+    <p>Welcome to the Fortuna Bot Application!</p>
   </div>
+
+  <p>Chat mailing types configuration.</p>
+    <mat-tab-group (selectedTabChange)="executeSelectedChange($event)" mat-stretch-tabs>
+        <mat-tab label="Holidays">
+          <p>Holidays table place</p>
+        </mat-tab>
+        <mat-tab label="Advices">
+          <p>Advices table place</p>
+        </mat-tab>
+        <mat-tab label="Memes">
+          <p>Memes table place</p>
+        </mat-tab>
+    </mat-tab-group>
+</section>
+
 

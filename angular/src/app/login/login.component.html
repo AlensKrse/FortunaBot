@@ -1,8 +1,8 @@
 <div class="container-login">
   <form [formGroup]="form">
-    <p *ngIf="invalidData">
-      <ngb-alert>
-        Entered username or password is incorrent!
+    <p>
+      <ngb-alert *ngIf="invalidData">
+        <strong>Warning!</strong> Entered username or password is incorrent!
       </ngb-alert>
     </p>
     <mat-form-field class="full-width mb-2">

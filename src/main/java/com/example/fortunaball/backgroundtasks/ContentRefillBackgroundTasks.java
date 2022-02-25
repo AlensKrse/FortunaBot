@@ -11,7 +11,7 @@ public class ContentRefillBackgroundTasks {
     @Autowired
     private DataFillingService dataFillingService;
 
-    @Scheduled(cron = "0 0 6 * * ?", zone = "CET")
+    @Scheduled(cron = "0 0 12 * * ?", zone = "CET")
     public void refreshContent() {
         dataFillingService.refreshContent();
     }

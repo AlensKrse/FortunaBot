@@ -19,27 +19,29 @@ import {IsAuthenticatedGuard} from "./guard/auth-guard";
 import {PageLoadingService} from "./services/page-loading-service";
 import {HttpService} from "./services/http.service";
 import {SecureHttpService} from "./services/secure-http-service";
+import {MatTabsModule} from "@angular/material/tabs";
 
 @NgModule({
-  imports: [
-    CommonModule,
-    AppRoutingModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    HttpClientModule,
-    AlertModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
-    })
-    ,
-    BrowserAnimationsModule,
-    MatInputModule,
-    MatButtonModule
-  ],
+    imports: [
+        CommonModule,
+        AppRoutingModule,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        HttpClientModule,
+        AlertModule,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient]
+            }
+        })
+        ,
+        BrowserAnimationsModule,
+        MatInputModule,
+        MatButtonModule,
+        MatTabsModule
+    ],
   providers: [AuthService, IsAuthenticatedGuard, PageLoadingService, HttpService, SecureHttpService],
   bootstrap: [AppComponent],
   exports: [

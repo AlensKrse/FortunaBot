@@ -11,9 +11,10 @@ import {AuthService} from "../services/auth-service";
 export class LoginComponent implements OnInit, OnDestroy {
 
   invalidData: boolean;
+  submitted: boolean;
+  error: boolean;
 
   form: FormGroup;
-  submitted = false;
 
   constructor(private router: Router, private formBuilder: FormBuilder, private authService: AuthService) {
     this.form = formBuilder.group({
@@ -22,6 +23,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     });
     this.invalidData = false;
     this.submitted = false;
+    this.error = true;
   }
 
   onLogin() {
@@ -32,18 +34,20 @@ export class LoginComponent implements OnInit, OnDestroy {
       const password = this.form.get('password').value;
 
       this.submitted = true;
-      this.authService.login(username, password).then(result => {
-        console.log(result);
-        if (result) {
+      this.authService.login(username, password).subscribe(isValid => {
+        if (isValid) {
           this.invalidData = false;
-          this.authService.saveAuthentication(result);
+          this.error = false;
+          this.authService.saveAuthentication(btoa(username + ':' + password));
           this.router.navigateByUrl('/bot');
-        } else {
-          this.invalidData = true;
-          this.submitted = false;
-          this.authenticationError();
         }
       });
+
+      if (this.error) {
+        this.invalidData = true;
+        this.submitted = false;
+        this.authenticationError();
+      }
     }
   }
 
