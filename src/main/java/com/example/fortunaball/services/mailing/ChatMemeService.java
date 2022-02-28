@@ -50,4 +50,9 @@ public class ChatMemeService {
     public ChatMeme save(final ChatMeme chatMeme) {
         return chatMemeRepository.save(chatMeme);
     }
+
+    @Transactional(rollbackFor = Exception.class)
+    public void deleteByMemeId(final long memeId) {
+        chatMemeRepository.deleteByMemeId(memeId);
+    }
 }

@@ -6,17 +6,95 @@
   </div>
 
   <p>Chat mailing types configuration.</p>
-    <mat-tab-group (selectedTabChange)="executeSelectedChange($event)" mat-stretch-tabs>
-        <mat-tab label="Holidays">
-          <p>Holidays table place</p>
-        </mat-tab>
-        <mat-tab label="Advices">
-          <p>Advices table place</p>
-        </mat-tab>
-        <mat-tab label="Memes">
-          <p>Memes table place</p>
-        </mat-tab>
-    </mat-tab-group>
+  <mat-tab-group (selectedTabChange)="executeSelectedChange($event)" mat-stretch-tabs>
+    <mat-tab label="Holidays">
+      <div class="group-padding">
+        <table mat-table class="table table-striped table-responsive-md btn-table" matSort (matSortChange)="sortJokeData($event)">
+          <thead>
+          <tr>
+            <th mat-sort-header="id">Id</th>
+            <th mat-sort-header="text">Text</th>
+            <th>Action</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let joke of jokes;">
+            <td class="mat-cell">{{ joke.id }}</td>
+            <td class="mat-cell">{{ joke.text }}</td>
+            <td class="mat-cell">
+              <mat-icon class="settings-icon" matTooltip="Edit"
+                        (click)="openJoke(joke)">
+                settings
+              </mat-icon>
+              <mat-icon class="delete-icon" matTooltip="Delete"
+                        (click)="deleteJoke(joke)">
+                delete
+              </mat-icon>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </mat-tab>
+    <mat-tab label="Advices">
+      <div class="group-padding">
+        <table mat-table class="table table-striped table-responsive-md btn-table" (matSortChange)="sortAdviceData($event)" matSort>
+          <thead>
+          <tr>
+            <th mat-sort-header="id">Id</th>
+            <th mat-sort-header="text">Text</th>
+            <th>Action</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let advice of advices;">
+            <td class="mat-cell">{{ advice.id }}</td>
+            <td class="mat-cell">{{ advice.text }}</td>
+            <td class="mat-cell">
+              <mat-icon class="settings-icon" matTooltip="Edit"
+                        (click)="openJoke(advice)">
+                settings
+              </mat-icon>
+              <mat-icon class="delete-icon" matTooltip="Delete"
+                        (click)="deleteJoke(advice)">
+                delete
+              </mat-icon>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </mat-tab>
+    <mat-tab label="Memes">
+      <div class="group-padding">
+        <table mat-table class="table table-striped table-responsive-md btn-table" matSort (matSortChange)="sortMemeData($event)">
+          <thead>
+          <tr>
+            <th mat-sort-header="id">Id</th>
+            <th mat-sort-header="text">Text</th>
+            <th>Action</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let meme of memes;">
+            <td class="mat-cell">{{ meme.id }}</td>
+            <td class="mat-cell">{{ meme.text }}</td>
+            <td class="mat-cell">
+              <mat-icon class="settings-icon" matTooltip="Edit"
+                        (click)="openJoke(meme)">
+                settings
+              </mat-icon>
+              <mat-icon class="delete-icon" matTooltip="Delete"
+                        (click)="deleteJoke(meme)">
+                delete
+              </mat-icon>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
 </section>
 
 

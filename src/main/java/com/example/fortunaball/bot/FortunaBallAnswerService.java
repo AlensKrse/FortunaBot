@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -21,22 +20,20 @@ public class FortunaBallAnswerService {
     private static final int FORTUNE_TYPES_SIZE = 4;
     private static final int FORTUNE_ANSWERS_SIZE = 5;
 
-    private final List<String> positiveAnswers = new ArrayList<>(List.of("Бесспорно", "Предрешено", "Никаких сомнений", "Определённо да", "Можешь быть уверен в этом"));
-    private final List<String> hesitantlyPositiveAnswers = new ArrayList<>(List.of("Мне кажется — «да»", "Вероятнее всего", "Хорошие перспективы", "Знаки говорят — «да»", "Да"));
-    private final List<String> neutralAnswers = new ArrayList<>(List.of("Пока не ясно, попробуй снова", "Спроси позже", "Лучше не рассказывать", "Сейчас нельзя предсказать", "Сконцентрируйся и спроси опять"));
-    private final List<String> negativeAnswers = new ArrayList<>(List.of("Даже не думай", "Мой ответ — «нет»", "По моим данным — «нет»", "Перспективы не очень хорошие", "Весьма сомнительно"));
+    private final List<String> positiveAnswers = List.of("Бесспорно", "Предрешено", "Никаких сомнений", "Определённо да", "Можешь быть уверен в этом");
+    private final List<String> hesitantlyPositiveAnswers = List.of("Мне кажется — «да»", "Вероятнее всего", "Хорошие перспективы", "Знаки говорят — «да»", "Да");
+    private final List<String> neutralAnswers = List.of("Пока не ясно, попробуй снова", "Спроси позже", "Лучше не рассказывать", "Сейчас нельзя предсказать", "Сконцентрируйся и спроси опять");
+    private final List<String> negativeAnswers = List.of("Даже не думай", "Мой ответ — «нет»", "По моим данным — «нет»", "Перспективы не очень хорошие", "Весьма сомнительно");
 
-    private final List<String> positiveSmiles = new ArrayList<>(List.of("\uD83D\uDE03", "\uD83D\uDE0D", "\uD83D\uDE0A", "☺️", "\uD83D\uDE0F", "\uD83D\uDE09", "\uD83D\uDE0E", "\uD83E\uDD29"));
-    private final List<String> hesitantlyPositiveSmiles = new ArrayList<>(List.of("\uD83D\uDE05", "\uD83D\uDE42", "\uD83E\uDD2B", "\uD83D\uDE43", "\uD83D\uDE3C", "\uD83D\uDC40", "\uD83E\uDD74", "\uD83D\uDE33"));
-    private final List<String> neutralSmiles = new ArrayList<>(List.of("\uD83E\uDD28", "\uD83E\uDDD0", "\uD83E\uDD2D", "\uD83E\uDD25", "\uD83D\uDE36", "\uD83D\uDE13", "\uD83D\uDE15", "\uD83D\uDE36\u200D\uD83C\uDF2B️"));
-    private final List<String> negativeSmiles = new ArrayList<>(List.of("\uD83D\uDE2B", "\uD83D\uDE2D", "\uD83D\uDE21", "\uD83E\uDD2F", "\uD83E\uDD2C", "\uD83E\uDD22", "\uD83D\uDCA9", "\uD83D\uDC7A"));
+    private final List<String> positiveSmiles = List.of("\uD83D\uDE03", "\uD83D\uDE0D", "\uD83D\uDE0A", "☺️", "\uD83D\uDE0F", "\uD83D\uDE09", "\uD83D\uDE0E", "\uD83E\uDD29");
+    private final List<String> hesitantlyPositiveSmiles = List.of("\uD83D\uDE05", "\uD83D\uDE42", "\uD83E\uDD2B", "\uD83D\uDE43", "\uD83D\uDE3C", "\uD83D\uDC40", "\uD83E\uDD74", "\uD83D\uDE33");
+    private final List<String> neutralSmiles = List.of("\uD83E\uDD28", "\uD83E\uDDD0", "\uD83E\uDD2D", "\uD83E\uDD25", "\uD83D\uDE36", "\uD83D\uDE13", "\uD83D\uDE15", "\uD83D\uDE36\u200D\uD83C\uDF2B️");
+    private final List<String> negativeSmiles = List.of("\uD83D\uDE2B", "\uD83D\uDE2D", "\uD83D\uDE21", "\uD83E\uDD2F", "\uD83E\uDD2C", "\uD83E\uDD22", "\uD83D\uDCA9", "\uD83D\uDC7A");
 
     private static final String ERROR_CASE_ANSWER = "Ответить на этот вопрос не по силен ни кто!";
     private static final String ERROR_CASE_SMILE = "☠️";
 
-    public FortunaBallAnswerService() throws NoSuchAlgorithmException {
-        // TODO document why this constructor is empty
-    }
+    public FortunaBallAnswerService() throws NoSuchAlgorithmException {}
 
     public String getFortuneBallAnswer() {
         final int randomNumber = random.nextInt(FORTUNE_TYPES_SIZE);

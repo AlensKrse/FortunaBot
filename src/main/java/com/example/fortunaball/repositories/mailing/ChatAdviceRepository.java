@@ -13,4 +13,6 @@ public interface ChatAdviceRepository extends JpaRepository<ChatAdvice, Long> {
     List<ChatAdvice> findByChatIdAndIsUsedFalse(long chatId);
 
     Optional<ChatAdvice> findByAdviceIdAndChatId(long adviceId, long chatId);
+
+    void deleteByAdviceId(long adviceId);
 }

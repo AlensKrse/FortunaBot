@@ -13,4 +13,6 @@ public interface ChatJokeRepository extends JpaRepository<ChatJoke, Long> {
     List<ChatJoke> findByChatIdAndIsUsedFalse(long chatId);
 
     Optional<ChatJoke> findByJokeIdAndChatId(long jokeId, long chatId);
+
+    void deleteByJokeId(long jokeId);
 }

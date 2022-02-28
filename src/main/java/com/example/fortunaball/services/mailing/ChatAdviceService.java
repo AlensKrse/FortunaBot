@@ -50,4 +50,9 @@ public class ChatAdviceService {
     public ChatAdvice save(final ChatAdvice chatAdvice) {
         return chatAdviceRepository.save(chatAdvice);
     }
+
+    @Transactional(rollbackFor = Exception.class)
+    public void deleteByAdviceId(final long adviceId) {
+        chatAdviceRepository.deleteByAdviceId(adviceId);
+    }
 }

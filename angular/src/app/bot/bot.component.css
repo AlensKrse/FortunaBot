@@ -21,16 +21,15 @@ table {
   width: 100%;
 }
 
-
 section div p{
-  color: #37489e;
+  color: #292a34;
   font-size: 30px;
   text-shadow: 2px 3px 5px grey;
   margin: 30px 0;
   text-align: center;
 }
 section div + p{
-  color: #39468f;
+  color: #292a34;
   font-weight: bold;
   font-size: 20px;
   padding-bottom: 20px;
@@ -48,4 +47,39 @@ mat-tab-group p {
   margin-left: auto;
   margin-right: auto;
   width: 100%;
+}
+
+.delete-icon {
+  color: #999999;
+  font-size: 16pt;
+  cursor: pointer;
+}
+
+.settings-icon {
+  color: #999999;
+  font-size: 16pt;
+  cursor: pointer;
+}
+
+td.mat-cell {
+  /* row padding */
+  padding: 16px 0;
+  /* row border */
+  border-bottom: 1px solid #33302b;
+  border-top: 1px solid #33302b;
+}
+
+td.mat-cell:first-child {
+  /* row border */
+  border-left: 1px solid #33302b;
+}
+
+td.mat-cell:last-child {
+  /* row border */
+  border-right: 1px solid #33302b;
+}
+
+table {
+  /* row spacing / margin */
+  border-spacing: 0 8px !important;
 }

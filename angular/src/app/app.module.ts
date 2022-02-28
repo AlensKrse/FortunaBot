@@ -20,29 +20,36 @@ import {PageLoadingService} from "./services/page-loading-service";
 import {HttpService} from "./services/http.service";
 import {SecureHttpService} from "./services/secure-http-service";
 import {MatTabsModule} from "@angular/material/tabs";
+import {MatIconModule} from "@angular/material/icon";
+import {MatTooltipModule} from "@angular/material/tooltip";
+import {MatSortModule} from "@angular/material/sort";
+import {MailingService} from "./services/mailing-service";
 
 @NgModule({
-    imports: [
-        CommonModule,
-        AppRoutingModule,
-        ReactiveFormsModule,
-        MatFormFieldModule,
-        HttpClientModule,
-        AlertModule,
-        TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useFactory: HttpLoaderFactory,
-                deps: [HttpClient]
-            }
-        })
-        ,
-        BrowserAnimationsModule,
-        MatInputModule,
-        MatButtonModule,
-        MatTabsModule
-    ],
-  providers: [AuthService, IsAuthenticatedGuard, PageLoadingService, HttpService, SecureHttpService],
+  imports: [
+    CommonModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    HttpClientModule,
+    AlertModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
+    ,
+    BrowserAnimationsModule,
+    MatInputModule,
+    MatButtonModule,
+    MatTabsModule,
+    MatIconModule,
+    MatTooltipModule,
+    MatSortModule
+  ],
+  providers: [AuthService, IsAuthenticatedGuard, PageLoadingService, HttpService, SecureHttpService, MailingService],
   bootstrap: [AppComponent],
   exports: [
     TranslatePipe,

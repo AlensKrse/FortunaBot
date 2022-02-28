@@ -34,4 +34,9 @@ export class AuthService {
     // @ts-ignore
     return sessionStorage.getItem('token');
   }
+
+}
+
+export function isNullOrUndefined(value: any) {
+  return value === null || value === undefined;
 }

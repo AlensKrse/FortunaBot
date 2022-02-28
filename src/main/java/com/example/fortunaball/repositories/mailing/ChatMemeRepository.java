@@ -13,4 +13,6 @@ public interface ChatMemeRepository extends JpaRepository<ChatMeme, Long> {
     List<ChatMeme> findByChatIdAndIsUsedFalse(long chatId);
 
     Optional<ChatMeme> findByMemeIdAndChatId(long memeId, long chatId);
+
+    void deleteByMemeId(long memeId);
 }
