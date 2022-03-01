@@ -1,8 +1,10 @@
 export class MemeData {
 
-  // @ts-ignore
   id: number;
-  // @ts-ignore
   text: string;
 
+  constructor(id: number, text: string) {
+    this.id = id;
+    this.text = text;
+  }
 }

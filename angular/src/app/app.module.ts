@@ -24,6 +24,16 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {MatSortModule} from "@angular/material/sort";
 import {MailingService} from "./services/mailing-service";
+import {MatTableModule} from "@angular/material/table";
+import {MatPaginatorModule} from "@angular/material/paginator";
+import {NotificationService} from "./services/notification.service";
+import {AdviceDetailsComponent} from './mailing/advices/advice-details/advice-details.component';
+import {HolidayDetailsComponent} from './mailing/holidays/holiday-details/holiday-details.component';
+import {MemeDetailsComponent} from './mailing/memes/meme-details/meme-details.component'
+import {MatDialogModule} from "@angular/material/dialog";
+import {AdviceCreationComponent} from './mailing/advices/advice-creation/advice-creation.component';
+import {MemeCreationComponent} from './mailing/memes/meme-creation/meme-creation.component';
+import {HolidayCreationComponent} from './mailing/holidays/holiday-creation/holiday-creation.component';
 
 @NgModule({
   imports: [
@@ -47,9 +57,12 @@ import {MailingService} from "./services/mailing-service";
     MatTabsModule,
     MatIconModule,
     MatTooltipModule,
-    MatSortModule
+    MatSortModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatDialogModule
   ],
-  providers: [AuthService, IsAuthenticatedGuard, PageLoadingService, HttpService, SecureHttpService, MailingService],
+  providers: [AuthService, IsAuthenticatedGuard, PageLoadingService, HttpService, SecureHttpService, MailingService, NotificationService],
   bootstrap: [AppComponent],
   exports: [
     TranslatePipe,
@@ -61,7 +74,12 @@ import {MailingService} from "./services/mailing-service";
     AppComponent,
     BotComponent,
     HeaderComponent,
-  ],
+    AdviceDetailsComponent,
+    HolidayDetailsComponent,
+    MemeDetailsComponent,
+    AdviceCreationComponent,
+    MemeCreationComponent,
+    HolidayCreationComponent],
 
   entryComponents: [],
 })

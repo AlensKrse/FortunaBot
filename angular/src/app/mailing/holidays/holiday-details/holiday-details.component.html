@@ -1,0 +1,26 @@
+<h1 mat-dialog-title>Holiday Details</h1>
+<form [formGroup]="form">
+
+  <div class="row">
+    <mat-form-field class="full-width mat-body-2" [style.width.px]=500>
+      <input matInput placeholder="Id" formControlName="id" type="number" readonly>
+    </mat-form-field>
+  </div>
+
+
+  <div class="row">
+    <mat-form-field class="full-width mat-body-2" [style.width.px]=500>
+      <textarea matInput placeholder="Text" formControlName="text" cdkTextareaAutosize
+                cdkAutosizeMinRows="1"
+                cdkAutosizeMaxRows="15">></textarea>
+    </mat-form-field>
+  </div>
+
+
+  <div class="dialog-buttons text-right">
+    <div class="text-right">
+      <button mat-button (click)="onCancelClick()">CLOSE</button>
+      <button mat-raised-button color="primary" (click)="onSaveClick()" [disabled]="submitted">SAVE</button>
+    </div>
+  </div>
+</form>

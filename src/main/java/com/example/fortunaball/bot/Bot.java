@@ -50,12 +50,11 @@ public class Bot extends TelegramLongPollingBot {
         }
     }
 
-    //todo add daily Holidays to background job
     //todo add button to enable dissable Advice mailing
     //todo add button to enable dissable Memes mailing
     //todo add button to enable dissable Holidays mailing
-    //todo add to background job feature available
-    //todo add statistic for each chatId
-    //todo create website to configure advices, memes, holidays
+    //todo add manual data refresh
+    //todo check duplication
+    //todo add statistics of mailing types
 
 }

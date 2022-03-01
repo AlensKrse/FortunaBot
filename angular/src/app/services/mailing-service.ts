@@ -1,8 +1,8 @@
 import {Injectable} from "@angular/core";
 import {SecureHttpService} from "./secure-http-service";
-import {AdviceData} from "../models/advice-data";
-import {JokeData} from "../models/joke-data";
-import {MemeData} from "../models/meme-data";
+import {Advice} from "../models/advice";
+import {Joke} from "../models/joke";
+import {Meme} from "../models/meme";
 
 @Injectable()
 export class MailingService {
@@ -12,17 +12,17 @@ export class MailingService {
   constructor(private secureHttpClient: SecureHttpService) {
   }
 
-  getAdvices(): Promise<AdviceData[]> {
+  getAdvices(): Promise<Advice[]> {
     const url = this.url + '/advices';
     return this.secureHttpClient.get(url);
   }
 
-  saveAdvice(advice: AdviceData): Promise<AdviceData> {
+  saveAdvice(advice: Advice): Promise<Advice> {
     const url = this.url + '/advices';
     return this.secureHttpClient.post(url, advice);
   }
 
-  updateAdvice(adviceId: number, advice: AdviceData): Promise<AdviceData> {
+  updateAdvice(adviceId: number, advice: Advice): Promise<Advice> {
     const url = this.url + '/advices/' + adviceId;
     return this.secureHttpClient.put(url, advice);
   }
@@ -32,17 +32,17 @@ export class MailingService {
     return this.secureHttpClient.delete(url);
   }
 
-  getJokes(): Promise<JokeData[]> {
+  getJokes(): Promise<Joke[]> {
     const url = this.url + '/jokes';
     return this.secureHttpClient.get(url);
   }
 
-  saveJoke(joke: JokeData): Promise<JokeData> {
+  saveJoke(joke: Joke): Promise<Joke> {
     const url = this.url + '/jokes';
     return this.secureHttpClient.post(url, joke);
   }
 
-  updateJoke(jokeId: number, joke: JokeData): Promise<JokeData> {
+  updateJoke(jokeId: number, joke: Joke): Promise<Joke> {
     const url = this.url + '/jokes/' + jokeId;
     return this.secureHttpClient.put(url, joke);
   }
@@ -52,17 +52,17 @@ export class MailingService {
     return this.secureHttpClient.delete(url);
   }
 
-  getMemes(): Promise<MemeData[]> {
+  getMemes(): Promise<Meme[]> {
     const url = this.url + '/memes';
     return this.secureHttpClient.get(url);
   }
 
-  saveMeme(meme: MemeData): Promise<MemeData> {
+  saveMeme(meme: Meme): Promise<Meme> {
     const url = this.url + '/memes';
     return this.secureHttpClient.post(url, meme);
   }
 
-  updateMeme(memeId: number, meme: MemeData): Promise<MemeData> {
+  updateMeme(memeId: number, meme: Meme): Promise<Meme> {
     const url = this.url + '/memes/' + memeId;
     return this.secureHttpClient.put(url, meme);
   }

@@ -6,10 +6,6 @@
   padding-top: 20px;
 }
 
-.admin-buttons-padding {
-  margin-bottom: 20px;
-}
-
 .table-container {
   margin-top: 10px;
   max-height: 327px;
@@ -21,20 +17,22 @@ table {
   width: 100%;
 }
 
-section div p{
+section div p {
   color: #292a34;
   font-size: 30px;
   text-shadow: 2px 3px 5px grey;
   margin: 30px 0;
   text-align: center;
 }
-section div + p{
+
+section div + p {
   color: #292a34;
   font-weight: bold;
   font-size: 20px;
   padding-bottom: 20px;
   text-align: center;
 }
+
 mat-tab-group {
   text-align: center;
 }
@@ -82,4 +80,17 @@ td.mat-cell:last-child {
 table {
   /* row spacing / margin */
   border-spacing: 0 8px !important;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+td, th {
+  width: 34%;
+}
+
+.admin-buttons-padding {
+  margin-top: 10px;
 }

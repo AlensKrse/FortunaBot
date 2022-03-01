@@ -1,0 +1,18 @@
+.dialog-buttons {
+  padding-top: 10px;
+  width: 100%;
+}
+
+.row {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+  width: 100%;
+}
+
+.text-right {
+  text-align: right !important
+}

@@ -8,90 +8,156 @@
   <p>Chat mailing types configuration.</p>
   <mat-tab-group (selectedTabChange)="executeSelectedChange($event)" mat-stretch-tabs>
     <mat-tab label="Holidays">
-      <div class="group-padding">
-        <table mat-table class="table table-striped table-responsive-md btn-table" matSort (matSortChange)="sortJokeData($event)">
-          <thead>
-          <tr>
-            <th mat-sort-header="id">Id</th>
-            <th mat-sort-header="text">Text</th>
-            <th>Action</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let joke of jokes;">
-            <td class="mat-cell">{{ joke.id }}</td>
-            <td class="mat-cell">{{ joke.text }}</td>
-            <td class="mat-cell">
+
+      <button class="admin-buttons-padding" mat-stroked-button color="primary"
+              (click)="saveHoliday()">
+        <mat-icon>add</mat-icon>
+        Create new Holiday
+      </button>
+
+      <mat-form-field appearance="standard">
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="applyHolidaysFilter($event)" placeholder="Filter" #input>
+      </mat-form-field>
+
+      <div class="mat-elevation-z8">
+        <table #holidaySort="matSort" mat-table [dataSource]="holidayDataSource" matSort>
+          <caption></caption>
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header="id"> ID</th>
+            <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="text">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header="text"> Text</th>
+            <td mat-cell *matCellDef="let row"> {{row.text}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef> Action</th>
+            <td mat-cell *matCellDef="let row">
               <mat-icon class="settings-icon" matTooltip="Edit"
-                        (click)="openJoke(joke)">
+                        (click)="openJoke(row)">
                 settings
               </mat-icon>
               <mat-icon class="delete-icon" matTooltip="Delete"
-                        (click)="deleteJoke(joke)">
+                        (click)="deleteJoke(row.id)">
                 delete
               </mat-icon>
             </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="holidaysDisplayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: holidaysDisplayedColumns;"></tr>
+
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
           </tr>
-          </tbody>
         </table>
+        <mat-paginator #holidayPaginator [pageSizeOptions]="[5, 10, 25, 100]"
+                       aria-label="Select page of holidays"></mat-paginator>
       </div>
     </mat-tab>
     <mat-tab label="Advices">
-      <div class="group-padding">
-        <table mat-table class="table table-striped table-responsive-md btn-table" (matSortChange)="sortAdviceData($event)" matSort>
-          <thead>
-          <tr>
-            <th mat-sort-header="id">Id</th>
-            <th mat-sort-header="text">Text</th>
-            <th>Action</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let advice of advices;">
-            <td class="mat-cell">{{ advice.id }}</td>
-            <td class="mat-cell">{{ advice.text }}</td>
-            <td class="mat-cell">
+
+      <button class="admin-buttons-padding" mat-stroked-button color="primary"
+              (click)="saveAdvice()">
+        <mat-icon>add</mat-icon>
+        Create new Advice
+      </button>
+
+      <mat-form-field appearance="standard">
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="applyAdvicesFilter($event)" placeholder="Filter" #input>
+      </mat-form-field>
+
+      <div class="mat-elevation-z8">
+        <table #adviceSort="matSort" mat-table [dataSource]="advicesDataSource" matSort>
+          <caption></caption>
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header="id"> ID</th>
+            <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="text">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header="text"> Text</th>
+            <td mat-cell *matCellDef="let row"> {{row.text}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef> Action</th>
+            <td mat-cell *matCellDef="let row">
               <mat-icon class="settings-icon" matTooltip="Edit"
-                        (click)="openJoke(advice)">
+                        (click)="openAdvice(row)">
                 settings
               </mat-icon>
               <mat-icon class="delete-icon" matTooltip="Delete"
-                        (click)="deleteJoke(advice)">
+                        (click)="deleteAdvice(row.id)">
                 delete
               </mat-icon>
             </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="advicesDisplayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: advicesDisplayedColumns;"></tr>
+
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
           </tr>
-          </tbody>
         </table>
+        <mat-paginator #advicePaginator [pageSizeOptions]="[5, 10, 25, 100]"
+                       aria-label="Select page of advices"></mat-paginator>
       </div>
     </mat-tab>
     <mat-tab label="Memes">
-      <div class="group-padding">
-        <table mat-table class="table table-striped table-responsive-md btn-table" matSort (matSortChange)="sortMemeData($event)">
-          <thead>
-          <tr>
-            <th mat-sort-header="id">Id</th>
-            <th mat-sort-header="text">Text</th>
-            <th>Action</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let meme of memes;">
-            <td class="mat-cell">{{ meme.id }}</td>
-            <td class="mat-cell">{{ meme.text }}</td>
-            <td class="mat-cell">
+
+      <button class="admin-buttons-padding" mat-stroked-button color="primary"
+              (click)="saveMeme()">
+        <mat-icon>add</mat-icon>
+        Create new Meme
+      </button>
+
+      <mat-form-field appearance="standard">
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="applyMemesFilter($event)" placeholder="Filter" #input>
+      </mat-form-field>
+
+      <div class="mat-elevation-z8">
+        <table #memeSort="matSort" mat-table [dataSource]="memesDataSource" matSort>
+          <caption></caption>
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header="id"> ID</th>
+            <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="text">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header="text"> Text</th>
+            <td mat-cell *matCellDef="let row"> {{row.text}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef> Action</th>
+            <td mat-cell *matCellDef="let row">
               <mat-icon class="settings-icon" matTooltip="Edit"
-                        (click)="openJoke(meme)">
+                        (click)="openMeme(row)">
                 settings
               </mat-icon>
               <mat-icon class="delete-icon" matTooltip="Delete"
-                        (click)="deleteJoke(meme)">
+                        (click)="deleteMeme(row.id)">
                 delete
               </mat-icon>
             </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="memesDisplayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: memesDisplayedColumns;"></tr>
+
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
           </tr>
-          </tbody>
         </table>
+        <mat-paginator #memePaginator [pageSizeOptions]="[5, 10, 25, 100]"
+                       aria-label="Select page of memes"></mat-paginator>
       </div>
     </mat-tab>
   </mat-tab-group>
