@@ -53,8 +53,6 @@ public class Bot extends TelegramLongPollingBot {
     //todo add button to enable dissable Advice mailing
     //todo add button to enable dissable Memes mailing
     //todo add button to enable dissable Holidays mailing
-    //todo add manual data refresh
-    //todo check duplication
     //todo add statistics of mailing types
 
 }

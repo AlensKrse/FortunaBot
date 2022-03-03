@@ -35,6 +35,9 @@ export class AuthService {
     return sessionStorage.getItem('token');
   }
 
+  logout(): void {
+    sessionStorage.clear();
+  }
 }
 
 export function isNullOrUndefined(value: any) {

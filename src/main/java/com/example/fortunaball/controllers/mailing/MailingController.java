@@ -1,5 +1,6 @@
 package com.example.fortunaball.controllers.mailing;
 
+import com.example.fortunaball.bot.DataFillingService;
 import com.example.fortunaball.data.AdviceData;
 import com.example.fortunaball.data.JokeData;
 import com.example.fortunaball.data.MemeData;
@@ -37,6 +38,9 @@ public class MailingController {
 
     @Autowired
     private MemeService memeService;
+
+    @Autowired
+    private DataFillingService dataFillingService;
 
     @GetMapping(MailingUris.ADVICES)
     public List<AdviceData> getAdvices() {
@@ -108,5 +112,11 @@ public class MailingController {
     public Boolean deleteMeme(@PathVariable final long memeId) {
         LOGGER.info("Request to delete meme with id: {}, time: {}", memeId, new Date());
         return memeService.deleteMemeData(memeId);
+    }
+
+    @PostMapping(MailingUris.REFRESH_DATA)
+    public Boolean refreshData() {
+        LOGGER.info("Request to refresh data, time: {}", new Date());
+        return dataFillingService.refreshContent();
     }
 }

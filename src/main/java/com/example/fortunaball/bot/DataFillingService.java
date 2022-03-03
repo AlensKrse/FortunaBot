@@ -113,13 +113,15 @@ public class DataFillingService {
         chatMemeService.saveAllChatMemes(chatMemes);
     }
 
-    public void refreshContent() {
+    public Boolean refreshContent() {
         LOGGER.info("All data content refresh started, time: {} ", new Date());
         final List<Chat> activeChats = chatService.getAllChats();
         saveNewChatAdvices(activeChats);
         saveNewChatJokes(activeChats);
         saveNewChatMemes(activeChats);
         LOGGER.info("All data content refresh finished, time: {} ", new Date());
+
+        return Boolean.TRUE;
     }
 
     private void saveNewChatAdvices(final List<Chat> activeChats) {

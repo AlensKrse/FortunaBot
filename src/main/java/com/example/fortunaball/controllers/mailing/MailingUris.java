@@ -9,6 +9,7 @@ public class MailingUris {
     public static final String JOKE = JOKES + "/{jokeId}";
     public static final String MEMES = "/memes";
     public static final String MEME = MEMES + "/{memeId}";
+    public static final String REFRESH_DATA = "/data-refresh";
 
     private MailingUris() {
     }

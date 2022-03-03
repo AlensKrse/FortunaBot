@@ -1,5 +1,13 @@
 <app-page-header [title]="'general.title' | translate"></app-page-header>
 
+<div class="dialog-buttons">
+  <div class="text-right">
+    <button mat-button (click)="refreshData()">Refresh data</button>
+    <button mat-raised-button color="primary" (click)="logout()">Logout</button>
+  </div>
+</div>
+
+
 <section fxLayout="column" fxFlexAlign="stretch">
   <div fxFlexAlign="center">
     <p>Welcome to the Fortuna Bot Application!</p>

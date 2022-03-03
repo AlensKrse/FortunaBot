@@ -12,7 +12,7 @@ export class NotificationService {
       debug: false,
       newestOnTop: true,
       progressBar: true,
-      positionClass: 'toast-top-right',
+      positionClass: 'toast-top-left',
       preventDuplicates: false,
       onclick: null,
       showDuration: '1300',

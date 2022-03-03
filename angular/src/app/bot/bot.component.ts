@@ -17,6 +17,7 @@ import {MemeDetailsComponent} from "../mailing/memes/meme-details/meme-details.c
 import {HolidayCreationComponent} from "../mailing/holidays/holiday-creation/holiday-creation.component";
 import {AdviceCreationComponent} from "../mailing/advices/advice-creation/advice-creation.component";
 import {MemeCreationComponent} from "../mailing/memes/meme-creation/meme-creation.component";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-bot',
@@ -57,7 +58,7 @@ export class BotComponent implements AfterViewInit {
   @ViewChild('memeSort') memeSort: MatSort;
 
   constructor(private formBuilder: FormBuilder, private authService: AuthService, private mailingService: MailingService,
-              private notificationService: NotificationService, private dialog: MatDialog) {
+              private notificationService: NotificationService, private dialog: MatDialog, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -205,5 +206,24 @@ export class BotComponent implements AfterViewInit {
 
   executeSelectedChange($event: MatTabChangeEvent) {
 
+  }
+
+  refreshData() {
+    if (confirm("Are you sure you want to refresh content?")) {
+      this.mailingService.refreshData().then(result => {
+        if (result) {
+          this.notificationService.info("Data refreshed successfully!")
+        } else {
+          this.notificationService.error("Some problem with refresh..")
+        }
+      });
+    }
+  }
+
+  logout() {
+    if (confirm("Are you sure you want to logout?")) {
+      this.authService.logout();
+      this.router.navigateByUrl('/login');
+    }
   }
 }

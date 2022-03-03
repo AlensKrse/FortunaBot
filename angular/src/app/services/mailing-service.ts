@@ -72,4 +72,8 @@ export class MailingService {
     return this.secureHttpClient.delete(url);
   }
 
+  refreshData(): Promise<boolean> {
+    const url = this.url + '/data-refresh';
+    return this.secureHttpClient.post(url, null);
+  }
 }

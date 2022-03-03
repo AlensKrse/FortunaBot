@@ -94,3 +94,19 @@ td, th {
 .admin-buttons-padding {
   margin-top: 10px;
 }
+
+.dialog-buttons {
+  padding-top: 10px;
+  width: 100%;
+
+}
+
+.text-right {
+  text-align: right !important
+}
+
+.text-left {
+  text-align: left !important
+}
+
+
