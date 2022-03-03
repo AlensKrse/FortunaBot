@@ -10,4 +10,6 @@ import java.util.List;
 public interface AdviceRepository extends JpaRepository<Advice, Long> {
 
     Advice findFirstByIdIn(List<Long> adviceIds);
+
+    Advice findByText(String newText);
 }

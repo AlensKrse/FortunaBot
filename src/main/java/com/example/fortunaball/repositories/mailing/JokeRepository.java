@@ -10,4 +10,6 @@ import java.util.List;
 public interface JokeRepository extends JpaRepository<Joke, Long> {
 
     Joke findFirstByIdIn(List<Long> jokeIds);
+
+    Joke findByText(String newText);
 }

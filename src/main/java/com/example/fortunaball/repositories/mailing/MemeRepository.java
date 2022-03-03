@@ -10,4 +10,6 @@ import java.util.List;
 public interface MemeRepository extends JpaRepository<Meme, Long> {
 
     Meme findFirstByIdIn(List<Long> memeIds);
+
+    Meme findByText(String text);
 }
