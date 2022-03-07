@@ -43,6 +43,11 @@ export class BotComponent implements AfterViewInit {
   memesDataSource: MatTableDataSource<Meme>;
 
   // @ts-ignore
+  allChats: number;
+  // @ts-ignore
+  activeChats: number;
+
+  // @ts-ignore
   @ViewChild('advicePaginator') advicePaginator: MatPaginator;
   // @ts-ignore
   @ViewChild('adviceSort') adviceSort: MatSort;
@@ -88,6 +93,16 @@ export class BotComponent implements AfterViewInit {
         this.memesDataSource = new MatTableDataSource(memeResult);
         this.memesDataSource.paginator = this.memePaginator;
         this.memesDataSource.sort = this.memeSort;
+      }
+    });
+    this.mailingService.getAllChatStatistics().then(chatResult => {
+      if (!isNullOrUndefined(chatResult)) {
+        this.allChats = chatResult.length;
+      }
+    });
+    this.mailingService.getAllActiveChatStatistics().then(chatResult => {
+      if (!isNullOrUndefined(chatResult)) {
+        this.activeChats = chatResult.length;
       }
     });
   }

@@ -1,8 +1,10 @@
 package com.example.fortunaball.services;
 
 
+import com.example.fortunaball.data.ChatData;
 import com.example.fortunaball.entities.Chat;
 import com.example.fortunaball.repositories.ChatRepository;
+import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ChatService {
@@ -21,6 +24,9 @@ public class ChatService {
 
     @Autowired
     private ChatRepository chatRepository;
+
+    @Autowired
+    private ModelMapper modelMapper;
 
     @Transactional(rollbackFor = Exception.class)
     public Chat saveChat(final long chatId) {
@@ -76,6 +82,16 @@ public class ChatService {
     @Transactional(readOnly = true)
     public List<Chat> getAllChats() {
         return chatRepository.findAll();
+    }
+
+    @Transactional(readOnly = true)
+    public List<ChatData> getAllDataChats() {
+        return chatRepository.findAll().stream().map(chat -> modelMapper.map(chat, ChatData.class)).collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public List<ChatData> getAllActiveDataChats() {
+        return chatRepository.findAll().stream().map(chat -> modelMapper.map(chat, ChatData.class)).filter(chatData -> chatData.getActive().equals(Boolean.TRUE)).collect(Collectors.toList());
     }
 
     @Transactional(rollbackFor = Exception.class)

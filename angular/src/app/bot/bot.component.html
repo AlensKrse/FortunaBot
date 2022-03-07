@@ -1,4 +1,5 @@
-<app-page-header [title]="'general.title' | translate"></app-page-header>
+<app-page-header [title]="'Bot application'"></app-page-header>
+
 
 <div class="dialog-buttons">
   <div class="text-right">
@@ -7,6 +8,10 @@
   </div>
 </div>
 
+<div class="text-left">
+  <h4> All chats: {{allChats}}</h4>
+  <h4> All active chats: {{activeChats}}</h4>
+</div>
 
 <section fxLayout="column" fxFlexAlign="stretch">
   <div fxFlexAlign="center">

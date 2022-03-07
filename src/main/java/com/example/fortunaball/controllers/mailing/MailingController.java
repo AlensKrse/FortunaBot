@@ -2,8 +2,10 @@ package com.example.fortunaball.controllers.mailing;
 
 import com.example.fortunaball.bot.DataFillingService;
 import com.example.fortunaball.data.AdviceData;
+import com.example.fortunaball.data.ChatData;
 import com.example.fortunaball.data.JokeData;
 import com.example.fortunaball.data.MemeData;
+import com.example.fortunaball.services.ChatService;
 import com.example.fortunaball.services.mailing.AdviceService;
 import com.example.fortunaball.services.mailing.JokeService;
 import com.example.fortunaball.services.mailing.MemeService;
@@ -41,6 +43,9 @@ public class MailingController {
 
     @Autowired
     private DataFillingService dataFillingService;
+
+    @Autowired
+    private ChatService chatService;
 
     @GetMapping(MailingUris.ADVICES)
     public List<AdviceData> getAdvices() {
@@ -118,5 +123,17 @@ public class MailingController {
     public Boolean refreshData() {
         LOGGER.info("Request to refresh data, time: {}", new Date());
         return dataFillingService.refreshContent();
+    }
+
+    @GetMapping(MailingUris.ALL_STATISTICS)
+    public List<ChatData> getAllChatStatistics() {
+        LOGGER.info("Request to all chat statistic data, time: {}", new Date());
+        return chatService.getAllDataChats();
+    }
+
+    @GetMapping(MailingUris.ACTIVE_STATISTICS)
+    public List<ChatData> getAllActiveChatStatistics() {
+        LOGGER.info("Request to all active chat statistic data, time: {}", new Date());
+        return chatService.getAllActiveDataChats();
     }
 }

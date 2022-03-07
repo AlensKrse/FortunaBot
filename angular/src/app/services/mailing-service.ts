@@ -3,6 +3,7 @@ import {SecureHttpService} from "./secure-http-service";
 import {Advice} from "../models/advice";
 import {Joke} from "../models/joke";
 import {Meme} from "../models/meme";
+import {Chat} from "../models/chat";
 
 @Injectable()
 export class MailingService {
@@ -75,5 +76,15 @@ export class MailingService {
   refreshData(): Promise<boolean> {
     const url = this.url + '/data-refresh';
     return this.secureHttpClient.post(url, null);
+  }
+
+  getAllChatStatistics(): Promise<Chat[]> {
+    const url = this.url + '/statistics/all';
+    return this.secureHttpClient.get(url);
+  }
+
+  getAllActiveChatStatistics(): Promise<Chat[]> {
+    const url = this.url + '/statistics/all-active';
+    return this.secureHttpClient.get(url);
   }
 }
