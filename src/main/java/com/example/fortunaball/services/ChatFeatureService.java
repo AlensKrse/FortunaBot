@@ -33,4 +33,9 @@ public class ChatFeatureService {
     public List<ChatFeature> findAllWithMemesActive(final List<Long> chatIds) {
         return chatFeaturesRepository.findByMemesActiveTrueAndChatIdIn(chatIds);
     }
+
+    @Transactional(readOnly = true)
+    public ChatFeature getByChatId(final long chatId) {
+        return chatFeaturesRepository.findByChatId(chatId);
+    }
 }

@@ -27,6 +27,9 @@ public class MessageService {
     @Autowired
     private FortunaBallAnswerService fortunaBallAnswerService;
 
+    @Autowired
+    private MarkupMessageService markupMessageService;
+
     public SendMessage processMessage(final Update update) {
         LOGGER.info("On update received method started, Update object: {}", update);
         final Message message = update.getMessage();
@@ -74,10 +77,13 @@ public class MessageService {
                 final String farewellText = String.format("Надеюсь увидеть Вас снова %s!", userName);
                 responseMessage.setText(farewellText);
             }, () -> responseMessage.setText("Я не могу остановить то, что не начато..."));
+        } else if (requestText.equals("/conf")) {
+            responseMessage.setText("Нажмите на категорию рассылки, которую вы хотите подключить или отключить!");
+            responseMessage.setReplyMarkup(markupMessageService.getInlineKeyboardMarkup());
         } else if (isInvalidQuestion(requestText)) {
             responseMessage.setText("По моему это не вопрос, попробуйте еще раз в формате '...?'");
         } else {
-            optionalChat.ifPresentOrElse(chat -> { //todo Предложить подключить бота
+            optionalChat.ifPresentOrElse(chat -> {
             }, () -> chatService.saveChat(chatId));
             final String answer = fortunaBallAnswerService.getFortuneBallAnswer();
             responseMessage.setText(answer);

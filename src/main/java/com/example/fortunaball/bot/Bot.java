@@ -18,6 +18,9 @@ public class Bot extends TelegramLongPollingBot {
     @Autowired
     private MessageService messageService;
 
+    @Autowired
+    private MarkupMessageService markupMessageService;
+
     @Value("${bot.username}")
     private String botUserName;
 
@@ -47,11 +50,15 @@ public class Bot extends TelegramLongPollingBot {
             } catch (final TelegramApiException e) {
                 LOGGER.error("During message response an exception caught with message: {}", e.getMessage());
             }
+        } else if (update.hasCallbackQuery()) {
+            final SendMessage message = markupMessageService.processMarkupMessage(update);
+            try {
+                execute(message);
+            } catch (final TelegramApiException e) {
+                LOGGER.error("During markup message response an exception caught with message: {}", e.getMessage());
+            }
         }
     }
 
-    //todo add button to enable dissable Advice mailing
-    //todo add button to enable dissable Memes mailing
-    //todo add button to enable dissable Holidays mailing
-
+    //todo add inline query
 }

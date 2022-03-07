@@ -14,4 +14,6 @@ public interface ChatFeaturesRepository extends JpaRepository<ChatFeature, Long>
     List<ChatFeature> findByJokesActiveTrueAndChatIdIn(List<Long> chatIds);
 
     List<ChatFeature> findByMemesActiveTrueAndChatIdIn(List<Long> chatIds);
+
+    ChatFeature findByChatId(long chatId);
 }
